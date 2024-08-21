@@ -1,5 +1,7 @@
-import TeamLogo from './TeamLogo'
 import { Link } from 'react-router-dom'
+
+import TeamLogo from './TeamLogo'
+import Loading from './Loading'
 import useTeamsNames from '../hooks/useTeamNames'
 
 
@@ -9,10 +11,6 @@ export default function Home() {
         response: teamNames
     } = useTeamsNames()
 
-    if (loading) {
-        return null
-    }
-
     return (
         <div className="container">
             <h1 className="large-header">
@@ -21,13 +19,15 @@ export default function Home() {
             <h3 className="header text-center">
                 Select a team
             </h3>
-            <div className="home-grid">
+            {loading
+            ? <Loading />
+            : <div className="home-grid">
                 {teamNames.map((id) => (
                     <Link key={id} to={`/${id}`}>
                         <TeamLogo id={id} width='125px'/>
                     </Link>
                 ))}
-            </div>
-        </div>        
+            </div>}
+        </div>       
     )
 }

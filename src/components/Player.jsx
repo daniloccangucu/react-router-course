@@ -1,5 +1,7 @@
 import { Link, useParams } from "react-router-dom"
+
 import usePlayer from "../hooks/usePlayer"
+import Loading from "./Loading";
 
 function Player() {
     const { playerId } = useParams();
@@ -9,16 +11,10 @@ function Player() {
         loading
     } = usePlayer(playerId);
 
-    if (loading) {
-        return null;
-    }
-
-    if (!player) {
-        return null;
-    }
-
   return (
-    <div className="panel">
+    loading
+    ? <Loading />
+    : <div className="panel">
         <img 
             className="avatar"
             src={player.avatar}

@@ -2,6 +2,7 @@ import { useSearchParams, Outlet } from "react-router-dom"
 
 import usePlayerNames from "../hooks/usePlayerNames"
 import Sidebar from "./Sidebar";
+import Loading from "./Loading";
 
 export default function Players() {
     const [searchParams] = useSearchParams();
@@ -12,12 +13,10 @@ export default function Players() {
         loading
     } = usePlayerNames(team)
 
-    if (loading) {
-        return null
-    }
-
     return (
-        <div className="container two-column">
+        loading
+        ? <Loading />
+        : <div className="container two-column">
             <Sidebar
                 title="Players"
                 list={names}

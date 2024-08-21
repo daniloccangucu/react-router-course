@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 
 import useTeam from "../hooks/useTeam";
 import TeamLogo from "./TeamLogo";
+import Loading from "./Loading";
 
 function Team() {
     const { teamId } = useParams();
@@ -11,11 +12,10 @@ function Team() {
         loading
     } = useTeam(teamId);
 
-    if (loading) {
-        return null;
-    }
   return (
-    <div className="panel">
+    loading
+    ? <Loading />
+    : <div className="panel">
         <div style={{width: '100%'}}>
             <TeamLogo id={teamId} className="center" />
             <h1 className="medium-header">{team.name}</h1>
